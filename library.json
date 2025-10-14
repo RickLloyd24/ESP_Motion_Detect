@@ -1,6 +1,6 @@
 {
   "name": "ESP_Camera_Motion_Detect",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A comprehensive ESP32 camera motion detection library with JPEG decoding support",
   "keywords": [
     "esp32",
