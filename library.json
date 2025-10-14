@@ -1,6 +1,6 @@
 {
   "name": "ESP Camera Motion Detect",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A comprehensive ESP32 camera motion detection library with JPEG decoding support",
   "keywords": [
     "esp32",
@@ -59,13 +59,14 @@
     "srcFilter": [
       "+<*>",
       "+<../src/Camera.cpp>",
-      "+<../src/Motion.cpp>"
+      "+<../src/Motion.cpp>",
+      "+<../src/picojpeg.cpp>"
     ]
   },
   "examples": [
     {
-      "name": "BasicMotionDetection",
-      "base": "examples/BasicMotionDetection",
+      "name": "DetectLossofMotion",
+      "base": "examples/DetectLossofMotion",
       "files": [
         "main.cpp"
       ]
@@ -74,6 +75,7 @@
   "headers": [
     "MotionDetect.h",
     "Camera.h",
-    "Motion.h"
+    "Motion.h",
+    "picojpeg.h"
   ]
 }
