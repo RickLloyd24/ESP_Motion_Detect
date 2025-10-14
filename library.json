@@ -1,0 +1,79 @@
+{
+  "name": "ESP Camera Motion Detect",
+  "version": "1.0.0",
+  "description": "A comprehensive ESP32 camera motion detection library with JPEG decoding support",
+  "keywords": [
+    "esp32",
+    "camera",
+    "motion detection",
+    "jpeg",
+    "computer vision",
+    "security",
+    "CAM",
+    "ESP",
+    "aithinker",
+    "wrover",
+    "ESP32-CAM",
+    "image processing"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RickLloyd24/ESP32MotionDetect.git"
+  },
+  "authors": 
+  [
+    {
+      "name": "Rick Lloyd",
+      "email": "RickLloyd24@hotmail.com",
+      "maintainer": true
+    }
+  ],
+  "license": "GFDL-1.3-or-later",
+  "homepage": "https://github.com/yourusername/ESP32MotionDetect",
+  "frameworks": [
+    "arduino",
+    "espidf"
+  ],
+  "platforms": [
+    "espressif32"
+  ],
+  "dependencies": [
+    {
+      "name": "esp32-camera",
+      "version": "*",
+      "platforms": ["espressif32"]
+    }
+  ],
+  "export": {
+    "include": "lib",
+    "exclude": [
+      "test*",
+      "example*",
+      "*.md"
+    ]
+  },
+  "build": {
+    "flags": [
+      "-I lib"
+    ],
+    "srcFilter": [
+      "+<*>",
+      "+<../src/Camera.cpp>",
+      "+<../src/Motion.cpp>"
+    ]
+  },
+  "examples": [
+    {
+      "name": "BasicMotionDetection",
+      "base": "examples/BasicMotionDetection",
+      "files": [
+        "main.cpp"
+      ]
+    }
+  ],
+  "headers": [
+    "MotionDetect.h",
+    "Camera.h",
+    "Motion.h"
+  ]
+}
