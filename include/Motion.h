@@ -43,21 +43,18 @@ namespace MotionDetect {
         ~Motion();
 
         // Configuration settings
-        void setMinPixelDiff(float value);     //set minimum percent of pixels that must change to trigger motion
-        void setMinChanges(int value);         //set minimum number of pixels that must change to count as motion  
-        
-        // Information getters
-        float getPercentDiff();                //return last percent difference calculated
-        uint16_t getWidth();                   //return image width calculated by the JPEG decoder function
-        uint16_t getHeight();                  //return image height calculated by the JPEG decoder function
+        void setMinPixelDiff(float value);                //set minimum percent of pixels that must change to trigger motion
+        void setMinChanges(int value);                    //set minimum number of pixels that must change to count as motion  
+        void setMinBufSizeChanges(float value);         //set minimum number of pixels that must change to count as motion  
+        void setMotionCount(int value);                   //value 1 = first motion, 2 = both motion methods
 
-        /**
-         * Detect motion function
-         * @param buf - pointer to the JPEG image buffer
-         * @param bufSize - size of the JPEG image buffer
-         * @return true if motion detected, false otherwise
-         */
-        bool detect(uint8_t * buf, size_t bufSize);
+        // Information getters
+        float getPercentDiff();                           //return last percent difference calculated
+        float getBufSizeChange();                       //return last frame size change calculated
+        uint16_t getWidth();                              //return image width calculated by the JPEG decoder function
+        uint16_t getHeight();                             //return image height calculated by the JPEG decoder function
+
+        int detect(uint8_t * buf, size_t bufSize);        //return 0 if error, 1 if motion detected, 2 if both motion methods detected
 
     protected:
         uint16_t pixelArrayIndex;
@@ -69,6 +66,9 @@ namespace MotionDetect {
         uint8_t* pixelCntArray;            // Dynamic pixel count array buffer
         size_t pixelArraySize;             // Size of allocated buffer
         unsigned long imageSize;
+        float minBufSizeChange = 10.0;
+        float BufSizeChange = 0.0;
+        int motionCount = 1;
 
         /**
          * Allocate or reallocate the pixel buffer

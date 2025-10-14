@@ -11,17 +11,15 @@ MotionDetect::Camera camera;
 boolean motionDetected = false;
 unsigned long motionDetectedAt = 0;
 
-/**
- *
- */
 void setup() {
     Serial.begin(115200);
     delay(3000);
     ESP_LOGI("setup", "Start");
 
     /* Configure motion detection parameters */
-    motion.setMinChanges(10);        //Set minimum number of pixel changes to 10 to trigger motion
-    motion.setMinPixelDiff(20.0);    //Set minimum percent of pixels that must change to trigger motion
+    motion.setMinChanges(10);            //Set minimum number of pixel changes to 10 to trigger motion
+    motion.setMinPixelDiff(20.0);        //Set minimum percent of pixels that must change to 20% to trigger motion
+    motion.setMinBufSizeChanges(100.0);  //Disable buffer size change detection
 
     /* Configure the camera */
     camera.wrover();                  //Set camera to Wrover-Kit board 
@@ -37,9 +35,7 @@ void setup() {
     setCamSensor->set_brightness(setCamSensor, 1);    //increase brightness by 1 level
     setCamSensor->set_vflip(setCamSensor, 1);         // flip the picture vertically
 }
-/**
- *
- */
+
 void loop() {
     static int loopctr = 0;
 
@@ -63,6 +59,5 @@ void loop() {
     if (loopctr++ > 1000) {
         ESP_LOGI("Done", "End of test");
         delay(5000); while(1);
-    }
-    
+    }  
 }

@@ -3,7 +3,7 @@
 // Camera implementation file
 //
 
-#include "../include/Camera.h"
+#include "Camera.h"
 #include <Arduino.h>
 
 // Global variable definitions

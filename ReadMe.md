@@ -8,6 +8,12 @@ The library includes standard configurations for multiple boards for quick and e
 
 The library sets common sensor settings and also allows modification any of the settings.
 
+This library uses two methods to detect motion: pixel changes in the jpeg buffer and jpeg buffer size change.  There is an option to use either or both.  The pixel changes is much more accurate.  The buffer size chnange is more accurate with larger buffers.  The following show approximate execution time to detect pixel changes on a WROVER processor:
+    320x240   -  12 milliseconds
+    640x480   -  36 milliseconds
+    800x600   -  58 milliseconds
+    1280x1024 - 197 milliseconds
+
 ## Code Example
 
 #include <Arduino.h>

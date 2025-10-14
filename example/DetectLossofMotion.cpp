@@ -17,8 +17,9 @@ void setup() {
     ESP_LOGI("setup", "Start");
 
     /* Configure motion detection parameters */
-    motion.setMinChanges(10);        //Set minimum number of pixel changes to 10 to trigger motion
-    motion.setMinPixelDiff(20.0);    //Set minimum percent of pixels that must change to trigger motion
+    motion.setMinChanges(10);            //Set minimum number of pixel changes to 10 to trigger motion
+    motion.setMinPixelDiff(20.0);        //Set minimum percent of pixels that must change to 20% to trigger motion
+    motion.setMinBufSizeChanges(100.0);  //Disable buffer size change detection
 
     /* Configure the camera */
     camera.wrover();                  //Set camera to Wrover-Kit board 
