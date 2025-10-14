@@ -30,52 +30,14 @@
   ],
   "license": "GFDL-1.3-or-later",
   "homepage": "https://github.com/RickLloyd24/ESP_Motion_Detect",
-  "frameworks": [
-    "arduino",
-    "espidf"
-  ],
-  "platforms": [
-    "espressif32"
-  ],
+  "frameworks": "arduino",
+  "examples": "examples/*/*.cpp",
+  "platforms": "espressif32",
   "dependencies": [
     {
       "name": "esp32-camera",
       "version": "*",
       "platforms": ["espressif32"]
     }
-  ],
-  "export": {
-    "include": "lib",
-    "exclude": [
-      "test*",
-      "example*",
-      "*.md"
-    ]
-  },
-  "build": {
-    "flags": [
-      "-I lib"
-    ],
-    "srcFilter": [
-      "+<*>",
-      "+<../src/Camera.cpp>",
-      "+<../src/Motion.cpp>",
-      "+<../src/picojpeg.cpp>"
-    ]
-  },
-  "examples": [
-    {
-      "name": "DetectLossofMotion",
-      "base": "examples/DetectLossofMotion",
-      "files": [
-        "main.cpp"
-      ]
-    }
-  ],
-  "headers": [
-    "MotionDetect.h",
-    "Camera.h",
-    "Motion.h",
-    "picojpeg.h"
   ]
 }
