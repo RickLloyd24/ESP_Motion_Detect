@@ -10,8 +10,8 @@
 
 // Global variables for frame management
 extern camera_fb_t *gFrame;
-extern sensor_t *setCamSensor;
-extern camera_config_t *setCamConfig;
+//extern sensor_t *setCamSensor;
+//extern camera_config_t *setCamConfig;
 
 // Macro for frame checking
 #define gIsFrame() (gFrame != NULL && gFrame->len > 0)
@@ -83,6 +83,11 @@ namespace MotionDetect {
         uint8_t* getFrameBufptr();
         size_t getFrameSize();
 
+        /**
+         * Debug and monitoring functions
+         */
+        void printSensorValues();                               // Print all current sensor settings
+
     protected:
         camera_config_t _config;
         // ChooseModel functions
@@ -91,6 +96,12 @@ namespace MotionDetect {
         void _m5wide(camera_config_t* config);
         void _eye(camera_config_t* config);
         void _wrover(camera_config_t* config);
+        // Helper functions for enum to string conversion
+        const char* _getFrameSizeName(framesize_t frameSize);
+        const char* _getPixelFormatName(pixformat_t pixelFormat);
+        const char* _getSpecialEffectName(int effect);
+        const char* _getWhiteBalanceModeName(int mode);
+        sensor_t *setCamSensor = nullptr;
     };
 }
 
