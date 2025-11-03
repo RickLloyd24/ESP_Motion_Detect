@@ -1,28 +1,24 @@
 #include <Arduino.h>
 #include "MotionDetect.h"
-#include <esp_log.h>  
+#include <esp_log.h>
 
-/**
- * Instantiate motion detector and camera objects
- */
-MotionDetect::Motion motion;
 MotionDetect::Camera camera;
-
-boolean motionDetected = false;
-unsigned long motionDetectedAt = 0;
 
 void setup() {
     Serial.begin(115200);
     delay(3000);
     ESP_LOGI("setup", "Start");
 
-    /* Configure motion detection parameters */
-    motion.setMinChanges(10);            //Set minimum number of pixel changes to 10 to trigger motion
-    motion.setMinPixelDiff(20.0);        //Set minimum percent of pixels that must change to 20% to trigger motion
-    motion.setMinBufSizeChanges(100.0);  //Disable buffer size change detection
+    camera.wrover();
+    /* Change Configure of the wrover camera before camera.begin() */
+    camera.setFrameSize(FRAMESIZE_VGA);                    // Set frame size (FRAMESIZE_QVGA, FRAMESIZE_VGA, etc.)
+    camera.setJpegQuality(30);                             // Set JPEG quality (0-63, lower = higher quality)
+    camera.setFrameBufferLocation(CAMERA_FB_IN_PSRAM);     // Set frame buffer location (PSRAM/DRAM)
+    camera.setFrameBufferCount(2);                         // Set number of frame buffers
+    camera.setPixelFormat(PIXFORMAT_JPEG);                 // Set pixel format (JPEG, RGB565, etc.)
+    camera.setGrabMode(CAMERA_GRAB_LATEST);                // Set grab mode (LATEST, WHEN_EMPTY)
+    camera.setXclkFreq(20000000);                          // Set XCLK frequency
 
-    /* Configure the camera */
-    camera.wrover();                  //Set camera to Wrover-Kit board 
 
     /* Initialize the camera */
     if (!camera.begin()) {
@@ -30,34 +26,33 @@ void setup() {
     }
     else {
         ESP_LOGI("SUCCESS", "Camera OK");
-    }
-    /* Update camera sensor settings */
-    setCamSensor->set_brightness(setCamSensor, 1);    //increase brightness by 1 level
-    setCamSensor->set_vflip(setCamSensor, 1);         // flip the picture vertically
+    }    
+        
+// Now you can adjust settings at runtime using the correct function names!
+    camera.setBrightness(1);                    // Increase brightness
+    camera.setContrast(1);                      // Increase contrast
+    camera.setAutoExposure(true);               // Enable auto exposure
+    camera.setAutoWhiteBalance(true);           // Enable auto white balance
 }
 
 void loop() {
-    static int loopctr = 0;
-
     if (!camera.capture()) {
         ESP_LOGW("loop", "camera capture Failure");
         delay(1000);
         return;
     }
-    if (motion.detect(camera.getFrameBufptr(), camera.getFrameSize())) {
-        motionDetectedAt = millis();
-        if (!motionDetected) {
-            motionDetected = true;
-            ESP_LOGI("Start", "Motion detected!, percent change: %f", motion.getPercentDiff());
-        }
-    }   
-    if (millis() - motionDetectedAt > 2000 && motionDetected) {
-        motionDetected = false;
-        ESP_LOGI("End", "No motion for 2 seconds, percent change: %5.2f", motion.getPercentDiff());
-        motionDetected = false;
+    else {
+        ESP_LOGI("loop", "Camera capture OK");
+
+        // Example of runtime camera adjustments based on conditions
+        // You can add your motion detection logic here
+        
+        // Example: Adjust settings for different lighting conditions
+        // if (someCondition) {
+        //     camera.setExposureValue(1200);     // Manual exposure
+        //     camera.setGainValue(30);           // Higher gain
+        // }
     }
-    if (loopctr++ > 1000) {
-        ESP_LOGI("Done", "End of test");
-        delay(5000); while(1);
-    }  
+
+    delay (5000); // wait 5 seconds before next capture
 }

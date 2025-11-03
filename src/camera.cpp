@@ -114,6 +114,146 @@ namespace MotionDetect {
     void Camera::config(camera_config_t config) {
         _config = config;
     }
+
+    /**
+     * Runtime camera configuration functions
+     * These functions update the camera configuration before initialization
+     */
+    void Camera::setFrameSize(framesize_t frameSize) {
+        _config.frame_size = frameSize;
+    }
+
+    void Camera::setJpegQuality(int quality) {
+        _config.jpeg_quality = quality;
+    }
+
+    void Camera::setFrameBufferLocation(camera_fb_location_t location) {
+        _config.fb_location = location;
+    }
+
+    void Camera::setFrameBufferCount(size_t count) {
+        _config.fb_count = count;
+    }
+
+    void Camera::setPixelFormat(pixformat_t format) {
+        _config.pixel_format = format;
+    }
+
+    void Camera::setGrabMode(camera_grab_mode_t mode) {
+        _config.grab_mode = mode;
+    }
+
+    void Camera::setXclkFreq(uint32_t freq) {
+        _config.xclk_freq_hz = freq;
+    }
+
+    /**
+     * Sensor configuration functions (runtime adjustable)
+     * These functions work after camera initialization
+     */
+    bool Camera::setBrightness(int level) {
+        if (setCamSensor) {
+            setCamSensor->set_brightness(setCamSensor, level);
+            return true;
+        }
+        return false;
+    }
+
+    bool Camera::setContrast(int level) {
+        if (setCamSensor) {
+            setCamSensor->set_contrast(setCamSensor, level);
+            return true;
+        }
+        return false;
+    }
+
+    bool Camera::setSaturation(int level) {
+        if (setCamSensor) {
+            setCamSensor->set_saturation(setCamSensor, level);
+            return true;
+        }
+        return false;
+    }
+
+    bool Camera::setHMirror(bool enable) {
+        if (setCamSensor) {
+            setCamSensor->set_hmirror(setCamSensor, enable ? 1 : 0);
+            return true;
+        }
+        return false;
+    }
+
+    bool Camera::setVFlip(bool enable) {
+        if (setCamSensor) {
+            setCamSensor->set_vflip(setCamSensor, enable ? 1 : 0);
+            return true;
+        }
+        return false;
+    }
+
+    bool Camera::setAutoExposure(bool enable) {
+        if (setCamSensor) {
+            setCamSensor->set_exposure_ctrl(setCamSensor, enable ? 1 : 0);
+            return true;
+        }
+        return false;
+    }
+
+    bool Camera::setAutoGain(bool enable) {
+        if (setCamSensor) {
+            setCamSensor->set_gain_ctrl(setCamSensor, enable ? 1 : 0);
+            return true;
+        }
+        return false;
+    }
+
+    bool Camera::setAutoWhiteBalance(bool enable) {
+        if (setCamSensor) {
+            setCamSensor->set_whitebal(setCamSensor, enable ? 1 : 0);
+            return true;
+        }
+        return false;
+    }
+
+    bool Camera::setExposureValue(int value) {
+        if (setCamSensor) {
+            setCamSensor->set_aec_value(setCamSensor, value);
+            return true;
+        }
+        return false;
+    }
+
+    bool Camera::setGainValue(int value) {
+        if (setCamSensor) {
+            setCamSensor->set_agc_gain(setCamSensor, value);
+            return true;
+        }
+        return false;
+    }
+
+    bool Camera::setSpecialEffect(int effect) {
+        if (setCamSensor) {
+            setCamSensor->set_special_effect(setCamSensor, effect);
+            return true;
+        }
+        return false;
+    }
+
+    bool Camera::setWhiteBalanceMode(int mode) {
+        if (setCamSensor) {
+            setCamSensor->set_wb_mode(setCamSensor, mode);
+            return true;
+        }
+        return false;
+    }
+
+    bool Camera::setGainCeiling(int ceiling) {
+        if (setCamSensor) {
+            setCamSensor->set_gainceiling(setCamSensor, (gainceiling_t)ceiling);
+            return true;
+        }
+        return false;
+    }
     /**
      * ChooseModel functions
      */
@@ -214,3 +354,6 @@ namespace MotionDetect {
     }
 
 } // namespace MotionDetect
+
+// Global camera instance definition
+//MotionDetect::Camera camera;

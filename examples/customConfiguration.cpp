@@ -14,23 +14,23 @@ void setup() {
     delay(3000);
     ESP_LOGI("setup", "Start");
 
-    /* Configure the camera before camera.begin() */
+    /* Configure the wrover camera before camera.begin() */
     CamConfig = new camera_config_t;
-    CamConfig->pin_d0 = 5;
-    CamConfig->pin_d1 = 18;
-    CamConfig->pin_d2 = 19;
-    CamConfig->pin_d3 = 21;
+    CamConfig->pin_d0 = 4;
+    CamConfig->pin_d1 = 5;
+    CamConfig->pin_d2 = 18;
+    CamConfig->pin_d3 = 19;
     CamConfig->pin_d4 = 36;
     CamConfig->pin_d5 = 39;
     CamConfig->pin_d6 = 34;
     CamConfig->pin_d7 = 35;
-    CamConfig->pin_xclk = 0;
+    CamConfig->pin_xclk = 21;
     CamConfig->pin_pclk = 22;
     CamConfig->pin_vsync = 25;
     CamConfig->pin_href = 23;
     CamConfig->pin_sccb_sda = 26;
     CamConfig->pin_sccb_scl = 27;
-    CamConfig->pin_pwdn = 32;
+    CamConfig->pin_pwdn = -1;
     CamConfig->pin_reset = -1;
     CamConfig->xclk_freq_hz = 20000000;
     CamConfig->ledc_timer = LEDC_TIMER_0;
