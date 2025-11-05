@@ -32,7 +32,6 @@ void setup() {
     else {
         ESP_LOGI("SUCCESS", "Camera OK");
     }
-    setCamSensor->set_framesize(setCamSensor, FRAMESIZE_SVGA);   //Set frame size to SVGA (800x600)
     ESP_LOGI("End", "Setup complete");
     ESP_LOGI("Move", "Make Motions in front of the camera!");
 }

@@ -59,24 +59,6 @@ namespace MotionDetect {
         void setXclkFreq(uint32_t freq);                        // Set XCLK frequency
 
         /**
-         * Sensor configuration functions (runtime adjustable)
-         * These functions work after camera initialization
-         */
-        bool setBrightness(int level);                          // Set brightness (-2 to 2)
-        bool setContrast(int level);                            // Set contrast (-2 to 2)  
-        bool setSaturation(int level);                          // Set saturation (-2 to 2)
-        bool setHMirror(bool enable);                           // Enable/disable horizontal mirror
-        bool setVFlip(bool enable);                             // Enable/disable vertical flip
-        bool setAutoExposure(bool enable);                      // Enable/disable auto exposure control
-        bool setAutoGain(bool enable);                          // Enable/disable auto gain control
-        bool setAutoWhiteBalance(bool enable);                  // Enable/disable auto white balance
-        bool setExposureValue(int value);                       // Set manual exposure value (0-1200)
-        bool setGainValue(int value);                           // Set manual gain value (0-30)
-        bool setSpecialEffect(int effect);                      // Set special effect (0-6)
-        bool setWhiteBalanceMode(int mode);                     // Set white balance mode (0-4)
-        bool setGainCeiling(int ceiling);                       // Set gain ceiling (0-6)
-
-        /**
          * Function to get the current camera_fb_t frame
          */
         camera_fb_t* getFramePtr();
